@@ -71,6 +71,7 @@ create type cliente_especial_type under cliente_type (
 
 create table cliente_especial of cliente_especial_type;
 drop table cliente_especial;
+describe cliente_especial;
 
 insert into cliente_especial values (cliente_seq.nextval, 'Pedro Paulo', endereco_type('Rua Beco sem saída', 'Coxixola', 'PB', '58000000'), fone_lista_type('839912349876'), 10);
 select * from cliente_especial;
@@ -105,6 +106,17 @@ create type item_type as object (
 );
 /
 
+create table item of item_type;
+drop table item;
+
+CREATE SEQUENCE item_seq
+ START WITH     1
+ INCREMENT BY   1
+ NOCACHE
+ NOCYCLE;
+ 
+insert into item values (item_type(item_seq.nextval, (produto_type(1, 1, 1)), 10, 10));
+ 
 create type item_lista_type as table of item_type;
 /
 
@@ -116,3 +128,5 @@ create type pedido_type as object (
     listaitens item_lista_type,
     enderecoentrega endereco_type
 );
+
+create table pedido of pedido_type;
