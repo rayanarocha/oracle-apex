@@ -1,15 +1,13 @@
 
 -- Object types
-create TYPE endereco_type as object (
+create type endereco_type as object (
     rua varchar(20),
     cidade varchar(10),
     estado char(2),
     cep varchar(10)
 );
-/
 
 create type fone_lista_type as varray(10) of varchar(20);
-/
 
 create type cliente_type as object (
     codigo number,
@@ -17,28 +15,23 @@ create type cliente_type as object (
     endereco endereco_type,
     listafone fone_lista_type
 )not final;
-/
 
 create type fone_lista_type as varray(10) of varchar(20);
-/
 
 create type cliente_vip_type under cliente_type (
     pontos integer,
     desconto number
 );
-/
 
 create type cliente_especial_type under cliente_type (
     desconto number
 );
-/
 
 create type produto_type as object (
     codigo number,
     preco number,
     taxa number
 );
-/
 
 create type item_type as object (
     codigo number,
@@ -46,10 +39,8 @@ create type item_type as object (
     quantidade integer,
     desconto number
 );
-/
 
 create type item_lista_type as table of item_type;
-/
 
 create type pedido_type as object (
     codigo number,
@@ -114,20 +105,24 @@ drop table item;
 ----------------------------------------- INSERTS --------------------------------------------
 
 insert into endereco values (endereco_type('Rua Beco sem saída', 'Coxixola', 'PB', '58000000'));
+insert into endereco values (endereco_type('Rua Túnel do tempo', 'Coxixola', 'PB', '58000011'));
+insert into endereco values (endereco_type('Rua José V. Silva', 'Mossoró', 'RN', '58000001'));
+insert into endereco values (endereco_type('Rua Francisco Motta', 'Mossoró', 'RN', '58000000'));
 
 insert into cliente values (cliente_seq.nextval, 'Severino Biu', endereco_type('Rua Beco sem saída', 'Coxixola', 'PB', '58000000'), fone_lista_type('839912349876'));
 insert into cliente values (cliente_type(cliente_seq.nextval, 'Ana Maria', endereco_type('Rua Beco sem saída', 'Coxixola', 'PB', '58000000'), fone_lista_type('839912349876')));
+insert into cliente values (cliente_seq.nextval, 'Manel', endereco_type('Rua José V. Silva', 'Mossoró', 'RN', '58000011'), fone_lista_type('839912349876'));
 
-insert into cliente_vip values (cliente_seq.nextval, 'João José', endereco_type('Rua Beco sem saída', 'Coxixola', 'PB', '58000000'), fone_lista_type('839912349876'), 10, 5);
+insert into cliente_vip values (cliente_seq.nextval, 'Bastião', endereco_type('Rua Francisco Motta', 'Mossoró', 'RN', '58000000'), fone_lista_type('839912349876'), 10, 5);
 
 insert into cliente_especial values (cliente_seq.nextval, 'Pedro Paulo', endereco_type('Rua Beco sem saída', 'Coxixola', 'PB', '58000000'), fone_lista_type('839912349876'), 10);
 
 insert into produto values (produto_type(produto_seq.nextval, 100, 10));
 
-select * from endereco;
 
 ----------------------------------------- QUERYS --------------------------------------------
 
+select * from endereco;
 -- Consulta a tabela toda
 select * from cliente;
 -- Consulta cada atributo individualmente para mostrar os atributos que são dos tipos de objetos criados
@@ -139,7 +134,42 @@ select * from cliente_especial;
 
 select * from produto;
 
-----------------------------------------------------------------------------------------------
+select cli.ende.rua, cli.ende.cidade, cli.ende.estado, cli.ende.cep
+from cliente cli
+order by ende desc;
 
+-------------------------------- OUTROS COMANDOS ---------------------------------------------
+-- Comando pra ver a estrutura física da tabela
 describe cliente_especial;
+
+-- Comando para limpar as tabelas
+truncate table endereco;
+
+--------------------------------------- MÉTODOS ----------------------------------------------
+
+ALTER TYPE endereco_type ADD MAP MEMBER FUNCTION compara RETURN varchar2 cascade;
+
+CREATE TYPE BODY endereco_type AS
+  MAP MEMBER FUNCTION compara RETURN varchar2 IS
+  BEGIN
+    RETURN self.rua || ' ' || self.bairro;
+  END;
+END;
+
+ALTER TYPE endereco_type DROP MAP MEMBER FUNCTION compara RETURN varchar2 CASCADE;
+
+ALTER TYPE endereco_type add order member function ordena (e_ende IN endereco_type) return integer cascade;
+
+CREATE OR REPLACE TYPE BODY endereco_type AS
+  ORDER MEMBER FUNCTION ordena (e_ende IN endereco_type) RETURN INTEGER IS
+  BEGIN
+    IF self.estado = e_ende.estado THEN
+      RETURN 0;
+    ELSIF self.cep > e_ende.cep THEN
+      RETURN 1;
+    ELSE
+      RETURN -1;
+    END IF;    
+  END;
+END;
 
