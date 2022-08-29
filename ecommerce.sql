@@ -40,9 +40,6 @@ create type item_type as object (
     desconto number
 );
 
-insert into item 
-values (item_type(item_seq.nextval, (select ref(p) from produto p where p.codigo = '3'), 10, 5 ));
-
 create type item_lista_type as table of item_type;
 
 create type pedido_type as object (
@@ -122,6 +119,9 @@ insert into cliente_vip values (cliente_seq.nextval, 'Bastião', endereco_type('R
 insert into cliente_especial values (cliente_seq.nextval, 'Pedro Paulo', endereco_type('Rua Beco sem saída', 'Coxixola', 'PB', '58000000'), fone_lista_type('839912349876'), 10);
 
 insert into produto values (produto_type(produto_seq.nextval, 100, 10));
+
+insert into item 
+values (item_type(item_seq.nextval, (select ref(p) from produto p where p.codigo = '3'), 10, 5 ));
 
 
 ----------------------------------------- QUERYS --------------------------------------------
