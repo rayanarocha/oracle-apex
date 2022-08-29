@@ -41,11 +41,7 @@ create type item_type as object (
 );
 
 insert into item 
-values (item_type(item_seq.nextval, produto_type(select ref(p) from produto p where p.codigo = '3'), 100, 10), 10, 5 ));
-
---(produto_type((select ref(c)
---from cliente c
---where c.nome = 'Severino Biu'), 100, 10));
+values (item_type(item_seq.nextval, (select ref(p) from produto p where p.codigo = '3'), 10, 5 ));
 
 create type item_lista_type as table of item_type;
 
@@ -154,6 +150,8 @@ where c.nome = 'Severino Biu';
 select ref(p) 
 from produto p 
 where p.codigo = '3';
+
+select i.codigo, i.produto, i.quantidade, i.desconto from item i;
 
 -------------------------------- OUTROS COMANDOS ---------------------------------------------
 -- Comando pra ver a estrutura física da tabela
