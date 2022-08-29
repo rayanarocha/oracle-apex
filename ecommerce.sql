@@ -40,6 +40,13 @@ create type item_type as object (
     desconto number
 );
 
+insert into item 
+values (item_type(item_seq.nextval, produto_type(select ref(p) from produto p where p.codigo = '3'), 100, 10), 10, 5 ));
+
+--(produto_type((select ref(c)
+--from cliente c
+--where c.nome = 'Severino Biu'), 100, 10));
+
 create type item_lista_type as table of item_type;
 
 create type pedido_type as object (
@@ -50,6 +57,7 @@ create type pedido_type as object (
     listaitens item_lista_type,
     enderecoentrega endereco_type
 );
+
 
 ----------------------------------------- CREATE SEQUENCE -----------------------------------------
 -- ID INCREMENTAL
@@ -137,6 +145,15 @@ select * from produto;
 select cli.ende.rua, cli.ende.cidade, cli.ende.estado, cli.ende.cep
 from cliente cli
 order by ende desc;
+
+-- select pra pegar o OID do objeto
+select ref(c)
+from cliente c
+where c.nome = 'Severino Biu';
+
+select ref(p) 
+from produto p 
+where p.codigo = '3';
 
 -------------------------------- OUTROS COMANDOS ---------------------------------------------
 -- Comando pra ver a estrutura física da tabela
