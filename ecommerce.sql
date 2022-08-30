@@ -51,7 +51,6 @@ create type pedido_type as object (
     enderecoentrega endereco_type
 );
 
-
 ----------------------------------------- CREATE SEQUENCE -----------------------------------------
 -- ID INCREMENTAL
 CREATE SEQUENCE cliente_seq
