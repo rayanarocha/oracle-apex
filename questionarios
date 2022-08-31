@@ -54,14 +54,31 @@
 ## (f) Com um comando SELECT, mostre todas as linhas (Object Rows) e colunas da Object Table PROFISSIONAL_OBJ_TAB.
 
     select * from profissional_obj_tab;
-    
+
 ### 2. Mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando.
 
 ## (a) Crie uma tabela relacional chamada PROFISSIONAL_TAB com as seguintes colunas: empregado PROFISSIONAL_TYPE e departamento INTEGER.
+
+    create table profissional_tab(
+    empregado profissional_type,
+    departamento integer
+);
+
 ## (b) Visualize a estrutura da tabela criada com o comando DESCRIBE.
+
+    describe profissional_tab;
+
 ## (c) Usando o método construtor de PROFISSIONAL_TYPE, insira uma linha na tabela PROFISSIONAL_TAB com os seguintes dados: 100, 'José', SYSDATE e 10.
+
+    insert into profissional_tab values (profissional_type(100, 'José', SYSDATE), 10);
+
 ## (d) Agora, sem usar o método construtor, tente inserir outra linha na tabela PROFISSIONAL_TAB com os seguintes dados: 101, 'Maria', SYSDATE e 11. Você conseguiu inserir a segunda linha? Qual a sua conclusão?
+
+    Não insere
+
 ## (e) Com um comando SELECT, mostre todas as linhas e colunas da tabela PROFISSIONAL_TAB.
+
+    select * from profissional_tab;
 
 #### Questionário A4Q1
 
