@@ -1,146 +1,140 @@
-## Questionário A2Q1
+#### Questionário A2Q1
 
-1. Cite e descreva pelo menos três diferenças entre o projeto conceitual de um BDOO e um BDR.
+### 1. Cite e descreva pelo menos três diferenças entre o projeto conceitual de um BDOO e um BDR.
 
-2. Por que o modelo de dados OO não vingou como modelo padrão para bancos de dados? Justifique detalhadamente a sua resposta.
+# BDR: entidades, associação entre instâncias, relacionamento entre entidades.
+# BDOO: objeto, atributos de coleção (array, lista), OID, associação entre objetos, métodos.
 
-3. Relacione o Sistema NoSQL com o seu respectivo Modelo de Dados.
+### 2. Por que o modelo de dados OO não vingou como modelo padrão para bancos de dados? Justifique detalhadamente a sua resposta.
 
-    Neo4j
-    CouchDB
-    Redis
-    Oracle NoSQL Database
-    Cassandra
+# Dificuldade em otimizar os comandos escritos na LP OO devida a sua complexidade e pela facilidade em cometer erros.
 
-4. Durante a aula, vimos aspectos relacionados às Modelagens Conceitual e Lógica de Dados. Agora, pesquise e descreva dois aspectos relacionados à Modelagem Física dos Dados.
+### 3. Relacione o Sistema NoSQL com o seu respectivo Modelo de Dados.
 
-## Questionário A3Q1
+##  Neo4j - grafos
+##  CouchDB - JSON
+##  Redis - chave/valor
+##  Oracle NoSQL Database - tabelas
+##  Cassandra - bigtable
 
-1. Mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando.
+### 4. Durante a aula, vimos aspectos relacionados às Modelagens Conceitual e Lógica de Dados. Agora, pesquise e descreva dois aspectos relacionados à Modelagem Física dos Dados.
 
-(a) Crie um Object Type chamado PROFISSIONAL_TYPE com os seguintes atributos: matricula INTEGER, nome VARCHAR2(30) e admissao DATE.
-(b) Visualize a estrutura do Object Type criado com o comando DESCRIBE.
-(c) Use o Object Type criado anteriormente como molde para criar uma Object Table chamada PROFISSIONAL_OBJ_TAB.
-(d) Usando o método construtor, insira uma linha (Object Row) na Object Table PROFISSIONAL_OBJ_TAB com os seguintes dados: 100, 'José' e SYSDATE.
-(e) Agora, sem usar o método construtor, tente inserir outra linha (Object Row) na Object Table PROFISSIONAL_OBJ_TAB com os seguintes dados: 101, 'Maria' e SYSDATE. Você conseguiu inserir a segunda linha? Qual a sua conclusão?
-(f) Com um comando SELECT, mostre todas as linhas (Object Rows) e colunas da Object Table PROFISSIONAL_OBJ_TAB.
+# Um modelo físico de dados introduz o contexto específico do banco de dados ausente em modelos conceituais e lógicos de dados. Ele representa as tabelas, colunas, tipos de dados, visualizações, restrições, índices e procedimentos dentro do banco de dados e/ou as informações comunicadas durante os processos de computador. Os modelos físicos de dados devem ser construídos em relação a um sistema de gerenciamento de banco de dados (SGBD) específico, assim como os requisitos específicos dos processos que operam com base nos dados.
 
-2. Mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando.
+#### Questionário A3Q1
 
-(a) Crie uma tabela relacional chamada PROFISSIONAL_TAB com as seguintes colunas: empregado PROFISSIONAL_TYPE e departamento INTEGER.
-(b) Visualize a estrutura da tabela criada com o comando DESCRIBE.
-(c) Usando o método construtor de PROFISSIONAL_TYPE, insira uma linha na tabela PROFISSIONAL_TAB com os seguintes dados: 100, 'José', SYSDATE e 10.
-(d) Agora, sem usar o método construtor, tente inserir outra linha na tabela PROFISSIONAL_TAB com os seguintes dados: 101, 'Maria', SYSDATE e 11. Você conseguiu inserir a segunda linha? Qual a sua conclusão?
-(e) Com um comando SELECT, mostre todas as linhas e colunas da tabela PROFISSIONAL_TAB.
+### 1. Mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando.
 
-## Questionário A4Q1
+## (a) Crie um Object Type chamado PROFISSIONAL_TYPE com os seguintes atributos: matricula INTEGER, nome VARCHAR2##(30) e admissao DATE.
+## (b) Visualize a estrutura do Object Type criado com o comando DESCRIBE.
+## (c) Use o Object Type criado anteriormente como molde para criar uma Object Table chamada PROFISSIONAL_OBJ_TAB.
+## (d) Usando o método construtor, insira uma linha (Object Row) na Object Table PROFISSIONAL_OBJ_TAB com os seguintes dados: 100, 'José' e SYSDATE.
+## (e) Agora, sem usar o método construtor, tente inserir outra linha (Object Row) na Object Table PROFISSIONAL_OBJ_TAB com os seguintes dados: 101, 'Maria' e SYSDATE. Você conseguiu inserir a segunda linha? Qual a sua conclusão?
+## (f) Com um comando SELECT, mostre todas as linhas (Object Rows) e colunas da Object Table PROFISSIONAL_OBJ_TAB.
 
-1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle.
+### 2. Mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando.
 
-(a) Crie um Object Type chamado TELEFONE_OBJ_TYPE com os seguintes atributos:
-pais CHAR(3), ddd CHAR(2) e numero CHAR(9).
-(b) Crie um Object Type chamado ENDERECO_OBJ_TYPE com os seguintes atributos:
-rua VARCHAR2(20), numero VARCHAR2(5), complemento VARCHAR2(10), bairro VARCHAR2(20), cidade VARCHAR2(20) e estado CHAR(2).
-(c) Crie um Object Type chamado CONTRIBUINTE_OBJ_TYPE com os seguintes atributos: cpf VARCHAR2(11), nome VARCHAR2(30), nascimento DATE, telefone TELEFONE_OBJ_TYPE e endereco ENDERECO_OBJ_TYPE.
-(d) Use o Object Type CONTRIBUINTE_OBJ_TYPE como molde para criar uma Object Table chamada CONTRIBUINTE_OBJ_TAB.
-(e) Visualize a estrutura da Object Table CONTRIBUINTE_OBJ_TAB.
-(f) Usando o método construtor, insira duas linhas (Object Rows) na Object Table CONTRIBUINTE_OBJ_TAB. Use dados fictícios de sua escolha.
-(g) Adicione um método chamado format_phone ao Object Type CONTRIBUINTE_OBJ_TYPE para retornar o número de telefone formatado de um determinado objeto. O aluno deve ser capaz de escolher o tipo do método apropriado bem como se o mesmo deve ser implementado como função ou procedure. O formato esperado de número de telefone é +55 (83) 98754-8276. Quando necessário, procure na documentação do Oracle por funções que lidam com dados textuais.
-(h) Escreva um comando SELECT sobre a tabela CONTRIBUINTE_OBJ_TAB para chamar o método criado na questão anterior e mostrar na tela o número do telefone formatado de todos os contribuintes.
+## (a) Crie uma tabela relacional chamada PROFISSIONAL_TAB com as seguintes colunas: empregado PROFISSIONAL_TYPE e departamento INTEGER.
+## (b) Visualize a estrutura da tabela criada com o comando DESCRIBE.
+## (c) Usando o método construtor de PROFISSIONAL_TYPE, insira uma linha na tabela PROFISSIONAL_TAB com os seguintes dados: 100, 'José', SYSDATE e 10.
+## (d) Agora, sem usar o método construtor, tente inserir outra linha na tabela PROFISSIONAL_TAB com os seguintes dados: 101, 'Maria', SYSDATE e 11. Você conseguiu inserir a segunda linha? Qual a sua conclusão?
+## (e) Com um comando SELECT, mostre todas as linhas e colunas da tabela PROFISSIONAL_TAB.
 
-## Questionário A5Q1
+#### Questionário A4Q1
 
-1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle.
+### 1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle.
 
-(a) Crie um Object Type chamado DEPARTMENTS_OBJ com a mesma estrutura da tabela relacional DEPARTMENTS, ou seja, os atributos do primeiro devem corresponder as colunas do segundo. Para visualizar a estrutura de DEPARTMENTS basta usar o comando DESCRIBE.
+## (a) Crie um Object Type chamado TELEFONE_OBJ_TYPE com os seguintes atributos: pais CHAR(3), ddd CHAR(2) e numero CHAR(9).
+## (b) Crie um Object Type chamado ENDERECO_OBJ_TYPE com os seguintes atributos: rua VARCHAR2(20), numero VARCHAR2(5), complemento VARCHAR2(10), bairro VARCHAR2(20), cidade VARCHAR2(20) e estado CHAR(2).
+## (c) Crie um Object Type chamado CONTRIBUINTE_OBJ_TYPE com os seguintes atributos: cpf VARCHAR2(11), nome VARCHAR2(30), nascimento DATE, telefone TELEFONE_OBJ_TYPE e endereco ENDERECO_OBJ_TYPE.
+## (d) Use o Object Type CONTRIBUINTE_OBJ_TYPE como molde para criar uma Object Table chamada CONTRIBUINTE_OBJ_TAB.
+## (e) Visualize a estrutura da Object Table CONTRIBUINTE_OBJ_TAB.
+## (f) Usando o método construtor, insira duas linhas (Object Rows) na Object Table CONTRIBUINTE_OBJ_TAB. Use dados fictícios de sua escolha.
+## (g) Adicione um método chamado format_phone ao Object Type CONTRIBUINTE_OBJ_TYPE para retornar o número de telefone formatado de um determinado objeto. O aluno deve ser capaz de escolher o tipo do método apropriado bem como se o mesmo deve ser implementado como função ou procedure. O formato esperado de número de telefone é +55 (83) 98754-8276. Quando necessário, procure na documentação do Oracle por funções que lidam com dados textuais.
+## (h) Escreva um comando SELECT sobre a tabela CONTRIBUINTE_OBJ_TAB para chamar o método criado na questão anterior e mostrar na tela o número do telefone formatado de todos os contribuintes.
 
-(b) Cria uma Object_Table chamada DEPARTMENTS_TAB usando como molde o Object Type DEPARTMENTS_OBJ. O atributo department_id deve corresponder a uma chave primária em DEPARTMENTS_TAB.
+#### Questionário A5Q1
 
-(c) Usando o comando INSERT INTO...SELECT..., copie as linhas da tabela relacional DEPARTMENTS para a Object Table DEPARTMENTS_TAB.
+### 1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle.
 
-(d) Modifique o Object Type DEPARTMENTS_OBJ para adicionar e implementar o método conta_dep o qual deve ser capaz de retornar a quantidade de departamentos (objetos) armazenados em DEPARTMENTS_TAB que contém NULO no atributo manager_id. O aluno deve ser capaz de identificar qual deve ser o tipo do método conta_dep.
+## (a) Crie um Object Type chamado DEPARTMENTS_OBJ com a mesma estrutura da tabela relacional DEPARTMENTS, ou seja, os atributos do primeiro devem corresponder as colunas do segundo. Para visualizar a estrutura de DEPARTMENTS basta usar o comando DESCRIBE.
 
-(e) Execute o método conta_dep e mostre o resultado. Dica: chame o método conta_dep a partir de uma consulta à tabela DUAL.
+## (b) Cria uma Object_Table chamada DEPARTMENTS_TAB usando como molde o Object Type DEPARTMENTS_OBJ. O atributo department_id deve corresponder a uma chave primária em DEPARTMENTS_TAB.
 
-## Questionário A5Q2
+## (c) Usando o comando INSERT INTO...SELECT..., copie as linhas da tabela relacional DEPARTMENTS para a Object Table DEPARTMENTS_TAB.
 
-1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos necessários para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle. Crie apenas o que está sendo pedido.
+## (d) Modifique o Object Type DEPARTMENTS_OBJ para adicionar e implementar o método conta_dep o qual deve ser capaz de retornar a quantidade de departamentos (objetos) armazenados em DEPARTMENTS_TAB que contém NULO no atributo manager_id. O aluno deve ser capaz de identificar qual deve ser o tipo do método conta_dep.
 
+## (e) Execute o método conta_dep e mostre o resultado. Dica: chame o método conta_dep a partir de uma consulta à tabela DUAL.
 
-(a) Crie o Object Type EMPRESA_TYPE com os seguintes atributos: CNPJ INTEGER, nome_fantasia VARCHAR2(30), pais VARCHAR2(25) e fundacao DATE.
+#### Questionário A5Q2
 
+### 1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos necessários para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle. Crie apenas o que está sendo pedido.
 
-(b) Crie o Object Type FUNCIONARIO_TYPE com os seguintes atributos: CPF INTEGER, nome VARCHAR2(30), sexo CHAR(1), nasc DATE e empresa REF EMPRESA_TYPE.
+## (a) Crie o Object Type EMPRESA_TYPE com os seguintes atributos: CNPJ INTEGER, nome_fantasia VARCHAR2(30), pais VARCHAR2(25) e fundacao DATE.
 
+## (b) Crie o Object Type FUNCIONARIO_TYPE com os seguintes atributos: CPF INTEGER, nome VARCHAR2(30), sexo CHAR(1), nasc DATE e empresa REF EMPRESA_TYPE.
 
-(c) Crie a Object Table empresa_tab usando como molde o Object Type empresa_type. O atributo cnpj deve ser a chave primária.
+## (c) Crie a Object Table empresa_tab usando como molde o Object Type empresa_type. O atributo cnpj deve ser a chave primária.
 
+## (d) Crie a Object Table funcionario_tab usando como molde o Object Type funcionario_type. O atributo cpf deve ser a chave primária. O atributo empresa deve ser um chave estrangeira.
 
+## (e) Usando dados fictícios, insira um objeto na Object Table empresa_tab.
 
-(d) Crie a Object Table funcionario_tab usando como molde o Object Type funcionario_type. O atributo cpf deve ser a chave primária. O atributo empresa deve ser um chave estrangeira.
+## (f) Usando dados fictícios, insira um objeto na Object Table funcionario_tab. O funcionário deve estar associado à empresa inserida na questão anterior.
 
+## (g) Modifique o Object Type empresa_type para adicionar o método CONTAEMPREGADOS que conte e retorne a quantidade de funcionários de uma empresa. Adicione e implemente o método. O aluno deve ser capaz de determinar o tipo de método, bem como se deve ser implementado como função ou procedure. Dica: para contar, use o comando SELECT COUNT(*) INTO...FROM...WHERE...
 
+## (h) Usando um comando SQL (SELECT), execute o método criado na questão anterior para exibir o nome fantasia de cada empresa e a quantidade de funcionários.
 
-(e) Usando dados fictícios, insira um objeto na Object Table empresa_tab.
+#### Questionário A7Q1
 
+### 1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle.
 
+## (a) Crie o Object Type MEMBRO_TYPE com os seguintes atributos: CPF INTEGER, nome VARCHAR2(30), sexo CHAR(1) e nasc DATE.
 
-(f) Usando dados fictícios, insira um objeto na Object Table funcionario_tab. O funcionário deve estar associado à empresa inserida na questão anterior.
+## (b) Crie os seguintes Object Types como subtipos de MEMBRO_TYPE:
 
+## - DOCENTE_TYPE: siape INTEGER e admissao DATE;
+## - DISCENTE_TYPE: matricula INTEGER e curso VARCHAR2(20).
 
-(g) Modifique o Object Type empresa_type para adicionar o método CONTAEMPREGADOS que conte e retorne a quantidade de funcionários de uma empresa. Adicione e implemente o método. O aluno deve ser capaz de determinar o tipo de método, bem como se deve ser implementado como função ou procedure. Dica: para contar, use o comando SELECT COUNT(*) INTO...FROM...WHERE...
+## (c) Crie uma Object Table MEMBRO_TAB usando como molde o Object Type MEMBRO_TYPE. O atributo CPF deve ser definido como chave primária.
 
+## (d) Usando o Princípio da Substituição, insira os seguintes objetos em MEMBRO_TAB:
 
-(h) Usando um comando SQL (SELECT), execute o método criado na questão anterior para exibir o nome fantasia de cada empresa e a quantidade de funcionários.
+## docente_type: <73635526728, PEDRO, M, 11-JAN-1972, 1477839, 19-JAN-1996>
+## docente_type: <11165527828, JOANA, F, 20-JUN-1962, 8276151, 16-NOV-2000>
+## discente_type: <73688876721, SANDRA, F, 17-JAN-2000, 201928726, COMPUTACAO>
+## discente_type: <22225526726, RENATO, M, 30-JUN-1999, 202018736, ELETRICA>
 
-## Questionário A7Q1
+## (e) Adicione o método CALCULATEMPO ao Object Type MEMBRO_TYPE para calcular e retornar a idade de um membro. A idade retornada deve ser um inteiro.
 
-1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle.
+## (f) Implemente o método CALCULATEMPO adicionado na letra (e).
 
-(a) Crie o Object Type MEMBRO_TYPE com os seguintes atributos: CPF INTEGER, nome VARCHAR2(30), sexo CHAR(1) e nasc DATE.
+## (g) Adicione o método calculatempo ao Object Type DOCENTE_TYPE de forma a sobrescrever o método herdado de MEMBRO_TYPE.
 
-(b) Crie os seguintes Object Types como subtipos de MEMBRO_TYPE:
+## (h) Reescreva o método CALCULATEMPO do Object Type DOCENTE_TYPE de modo a calcular a quantidade de anos trabalhados por um docente. A quantidade deve ser um inteiro.
 
-- DOCENTE_TYPE: siape INTEGER e admissao DATE;
-- DISCENTE_TYPE: matricula INTEGER e curso VARCHAR2(20).
+## (i) Elabore uma consulta SQL para executar o método CALCULATEMPO para todos os objetos armazenados em MEMBRO_TAB. Mostre o resultado da consulta.
 
-(c) Crie uma Object Table MEMBRO_TAB usando como molde o Object Type MEMBRO_TYPE. O atributo CPF deve ser definido como chave primária.
+#### Questionário A8Q1
 
-(d) Usando o Princípio da Substituição, insira os seguintes objetos em MEMBRO_TAB:
+### 1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos necessários para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle. Crie apenas o que está sendo pedido.
 
-docente_type: <73635526728, PEDRO, M, 11-JAN-1972, 1477839, 19-JAN-1996>
-docente_type: <11165527828, JOANA, F, 20-JUN-1962, 8276151, 16-NOV-2000>
-discente_type: <73688876721, SANDRA, F, 17-JAN-2000, 201928726, COMPUTACAO>
-discente_type: <22225526726, RENATO, M, 30-JUN-1999, 202018736, ELETRICA>
+## (a) Crie o Object Type dimensao_TYPE com os seguintes atributos: comprimento NUMBER, largura NUMBER e altura NUMBER.
 
-(e) Adicione o método CALCULATEMPO ao Object Type MEMBRO_TYPE para calcular e retornar a idade de um membro. A idade retornada deve ser um inteiro.
+## (b) Crie o Object Type produto_TYPE com os seguintes atributos: id NUMBER, nome VARCHAR2(20), dimensao DIMENSAO_TYPE e cor VARCHAR2(15).
 
-(f) Implemente o método CALCULATEMPO adicionado na letra (e).
+## (c) Crie uma Object Table produto_tab usando como molde o Object Type produto_TYPE. Atenção: o atributo id deve ser uma chave primária. O nome do produto não pode ser nulo. As dimensões altura, largura e comprimento devem ser maiores do que zero.
 
-(g) Adicione o método calculatempo ao Object Type DOCENTE_TYPE de forma a sobrescrever o método herdado de MEMBRO_TYPE.
+## (d) Instancie e insira os seguintes objetos em Produto_tab:
 
-(h) Reescreva o método CALCULATEMPO do Object Type DOCENTE_TYPE de modo a calcular a quantidade de anos trabalhados por um docente. A quantidade deve ser um inteiro.
+## 100, Mesa, 3,1,1, Marrom
+## 101, Sofa, 4,2,2, Cinza
+## 102, Mesa, null, Preta
 
-(i) Elabore uma consulta SQL para executar o método CALCULATEMPO para todos os objetos armazenados em MEMBRO_TAB. Mostre o resultado da consulta.
+## (e) Atualize as dimensões do produto 102 para comprimento = 3, largura = 1 e altura = 1.
 
-## Questionário A8Q1
+## (f) Exiba o OID dos objetos contidos em Produto_tab cuja altura é igual a 1.
 
-1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos necessários para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle. Crie apenas o que está sendo pedido.
-
-(a) Crie o Object Type dimensao_TYPE com os seguintes atributos: comprimento NUMBER, largura NUMBER e altura NUMBER.
-
-(b) Crie o Object Type produto_TYPE com os seguintes atributos: id NUMBER, nome VARCHAR2(20), dimensao DIMENSAO_TYPE e cor VARCHAR2(15).
-
-(c) Crie uma Object Table produto_tab usando como molde o Object Type produto_TYPE. Atenção: o atributo id deve ser uma chave primária. O nome do produto não pode ser nulo. As dimensões altura, largura e comprimento devem ser maiores do que zero.
-
-(d) Instancie e insira os seguintes objetos em Produto_tab:
-
-100, Mesa, 3,1,1, Marrom
-101, Sofa, 4,2,2, Cinza
-102, Mesa, null, Preta
-
-(e) Atualize as dimensões do produto 102 para comprimento = 3, largura = 1 e altura = 1.
-
-(f) Exiba o OID dos objetos contidos em Produto_tab cuja altura é igual a 1.
-
-(g) Elabore uma consulta para mostrar o nome dos produtos e sua área (comprimento * altura * dimensão). Ordene de modo decrescente pela área.
+## (g) Elabore uma consulta para mostrar o nome dos produtos e sua área (comprimento * altura * dimensão). Ordene de modo decrescente pela área.
