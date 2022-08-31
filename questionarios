@@ -26,12 +26,35 @@
 ### 1. Mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando.
 
 ## (a) Crie um Object Type chamado PROFISSIONAL_TYPE com os seguintes atributos: matricula INTEGER, nome VARCHAR2##(30) e admissao DATE.
+
+    create type profissional_type as object(
+        matricula integer,
+        nome varchar2(30),
+        admissao date
+    );
+
 ## (b) Visualize a estrutura do Object Type criado com o comando DESCRIBE.
+
+    describe profissional_type;
+
 ## (c) Use o Object Type criado anteriormente como molde para criar uma Object Table chamada PROFISSIONAL_OBJ_TAB.
+
+    create table profissional_obj_tab of profissional_type;
+
 ## (d) Usando o método construtor, insira uma linha (Object Row) na Object Table PROFISSIONAL_OBJ_TAB com os seguintes dados: 100, 'José' e SYSDATE.
+
+    insert into profissional_obj_tab values (profissional_type(100, 'José', SYSDATE));
+
 ## (e) Agora, sem usar o método construtor, tente inserir outra linha (Object Row) na Object Table PROFISSIONAL_OBJ_TAB com os seguintes dados: 101, 'Maria' e SYSDATE. Você conseguiu inserir a segunda linha? Qual a sua conclusão?
+
+    insert into profissional_obj_tab values (101, 'Maria', SYSDATE);
+
+    Sim, inseriu normalmente
+
 ## (f) Com um comando SELECT, mostre todas as linhas (Object Rows) e colunas da Object Table PROFISSIONAL_OBJ_TAB.
 
+    select * from profissional_obj_tab;
+    
 ### 2. Mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando.
 
 ## (a) Crie uma tabela relacional chamada PROFISSIONAL_TAB com as seguintes colunas: empregado PROFISSIONAL_TYPE e departamento INTEGER.
