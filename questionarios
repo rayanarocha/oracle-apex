@@ -85,6 +85,13 @@
 ### 1. Usando seu usuário do Oracle Apex (https://apex.oracle.com/i/index.html) criado anteriormente, mostre todos os comandos usados para executar as solicitações abaixo, bem como o resultado de cada comando. Somente serão aceitas respostas inseridas pelo Moodle.
 
 ## (a) Crie um Object Type chamado TELEFONE_OBJ_TYPE com os seguintes atributos: pais CHAR(3), ddd CHAR(2) e numero CHAR(9).
+
+    create type telefone_obj_type as object (
+    pais char(3),
+    ddd char(2),
+    numero char(9)
+);
+
 ## (b) Crie um Object Type chamado ENDERECO_OBJ_TYPE com os seguintes atributos: rua VARCHAR2(20), numero VARCHAR2(5), complemento VARCHAR2(10), bairro VARCHAR2(20), cidade VARCHAR2(20) e estado CHAR(2).
 ## (c) Crie um Object Type chamado CONTRIBUINTE_OBJ_TYPE com os seguintes atributos: cpf VARCHAR2(11), nome VARCHAR2(30), nascimento DATE, telefone TELEFONE_OBJ_TYPE e endereco ENDERECO_OBJ_TYPE.
 ## (d) Use o Object Type CONTRIBUINTE_OBJ_TYPE como molde para criar uma Object Table chamada CONTRIBUINTE_OBJ_TAB.
@@ -178,3 +185,32 @@
 ## (f) Exiba o OID dos objetos contidos em Produto_tab cuja altura é igual a 1.
 
 ## (g) Elabore uma consulta para mostrar o nome dos produtos e sua área (comprimento * altura * dimensão). Ordene de modo decrescente pela área.
+
+-------------------------------------------------------------------------
+
+create type profissional_type as object(
+    matricula integer,
+    nome varchar2(30),
+    admissao date
+);
+
+describe profissional_type;
+
+create table profissional_obj_tab of profissional_type;
+
+insert into profissional_obj_tab values (profissional_type(100, 'José', SYSDATE));
+insert into profissional_obj_tab values (101, 'Maria', SYSDATE);
+
+select * from profissional_obj_tab;
+
+create table profissional_tab(
+    empregado profissional_type,
+    departamento integer
+);
+
+describe profissional_tab;
+
+insert into profissional_tab values (profissional_type(100, 'José', SYSDATE), 10);
+insert into profissional_tab values (101, 'Maria', SYSDATE, 11);
+
+select * from profissional_tab;
