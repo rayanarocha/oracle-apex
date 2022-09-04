@@ -2,24 +2,24 @@
 
 ### 1. Cite e descreva pelo menos três diferenças entre o projeto conceitual de um BDOO e um BDR.
 
-# BDR: entidades, associação entre instâncias, relacionamento entre entidades.
-# BDOO: objeto, atributos de coleção (array, lista), OID, associação entre objetos, métodos.
+    BDR: entidades, associação entre instâncias, relacionamento entre entidades.
+    BDOO: objeto, atributos de coleção (array, lista), OID, associação entre objetos, métodos.
 
 ### 2. Por que o modelo de dados OO não vingou como modelo padrão para bancos de dados? Justifique detalhadamente a sua resposta.
 
-# Dificuldade em otimizar os comandos escritos na LP OO devida a sua complexidade e pela facilidade em cometer erros.
+    Dificuldade em otimizar os comandos escritos na LP OO devida a sua complexidade e pela facilidade em cometer erros.
 
 ### 3. Relacione o Sistema NoSQL com o seu respectivo Modelo de Dados.
 
-##  Neo4j - grafos
-##  CouchDB - JSON
-##  Redis - chave/valor
-##  Oracle NoSQL Database - tabelas
-##  Cassandra - bigtable
+    Neo4j - grafos
+    CouchDB - JSON
+    Redis - chave/valor
+    Oracle NoSQL Database - tabelas
+    Cassandra - bigtable
 
 ### 4. Durante a aula, vimos aspectos relacionados às Modelagens Conceitual e Lógica de Dados. Agora, pesquise e descreva dois aspectos relacionados à Modelagem Física dos Dados.
 
-# Um modelo físico de dados introduz o contexto específico do banco de dados ausente em modelos conceituais e lógicos de dados. Ele representa as tabelas, colunas, tipos de dados, visualizações, restrições, índices e procedimentos dentro do banco de dados e/ou as informações comunicadas durante os processos de computador. Os modelos físicos de dados devem ser construídos em relação a um sistema de gerenciamento de banco de dados (SGBD) específico, assim como os requisitos específicos dos processos que operam com base nos dados.
+    Um modelo físico de dados introduz o contexto específico do banco de dados ausente em modelos conceituais e lógicos de dados. Ele representa as tabelas, colunas, tipos de dados, visualizações, restrições, índices e procedimentos dentro do banco de dados e/ou as informações comunicadas durante os processos de computador. Os modelos físicos de dados devem ser construídos em relação a um sistema de gerenciamento de banco de dados (SGBD) específico, assim como os requisitos específicos dos processos que operam com base nos dados.
 
 #### Questionário A3Q1
 
@@ -93,9 +93,30 @@
 );
 
 ## (b) Crie um Object Type chamado ENDERECO_OBJ_TYPE com os seguintes atributos: rua VARCHAR2(20), numero VARCHAR2(5), complemento VARCHAR2(10), bairro VARCHAR2(20), cidade VARCHAR2(20) e estado CHAR(2).
+
+    create type endereco_obj_type as object (
+    rua varchar2(20),
+    estado char(2)
+);
+
 ## (c) Crie um Object Type chamado CONTRIBUINTE_OBJ_TYPE com os seguintes atributos: cpf VARCHAR2(11), nome VARCHAR2(30), nascimento DATE, telefone TELEFONE_OBJ_TYPE e endereco ENDERECO_OBJ_TYPE.
+
+    create type contribuinte_obj_type as object (
+    cpf varchar2(11),
+    nome varchar2(30),
+    nascimento date,
+    telefone telefone_obj_type,
+    endereco endereco_obj_type
+);
+
 ## (d) Use o Object Type CONTRIBUINTE_OBJ_TYPE como molde para criar uma Object Table chamada CONTRIBUINTE_OBJ_TAB.
+
+    create table contribuinte_obj_tab of contribuinte_obj_type;
+
 ## (e) Visualize a estrutura da Object Table CONTRIBUINTE_OBJ_TAB.
+
+    describe contribuinte_obj_tab;
+    
 ## (f) Usando o método construtor, insira duas linhas (Object Rows) na Object Table CONTRIBUINTE_OBJ_TAB. Use dados fictícios de sua escolha.
 ## (g) Adicione um método chamado format_phone ao Object Type CONTRIBUINTE_OBJ_TYPE para retornar o número de telefone formatado de um determinado objeto. O aluno deve ser capaz de escolher o tipo do método apropriado bem como se o mesmo deve ser implementado como função ou procedure. O formato esperado de número de telefone é +55 (83) 98754-8276. Quando necessário, procure na documentação do Oracle por funções que lidam com dados textuais.
 ## (h) Escreva um comando SELECT sobre a tabela CONTRIBUINTE_OBJ_TAB para chamar o método criado na questão anterior e mostrar na tela o número do telefone formatado de todos os contribuintes.
