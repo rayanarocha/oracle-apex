@@ -30,17 +30,17 @@ values (contribuinte_obj_type('123', 'Maria', TO_DATE('20/02/1987'), telefone_ob
 alter type contribuinte_obj_type add member procedure format_phone cascade;
 
 create or replace type body contribuinte_obj_type as member procedure format_phone (self in out contribuinte_obj_type) is
+
 begin
-    dbms_output.put_line(pais || '( ' || ddd || ') ' || numero);
+    dbms_output.put_line(self.telefone.pais || '( ' || self.telefone.ddd || ') ' || self.telefone.numero);
 end;
 end;
 
-SELECT
-c.format_phone
-FROM
-contribuinte_obj_table c;
-
+SELECT c.format_phone as telefone
+FROM contribuinte_obj_table c;
 
 drop type telefone_obj_type;
 
 drop table contribuinte_obj_table;
+
+select c.telefone.pais from contribuinte_obj_table c;
