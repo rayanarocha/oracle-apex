@@ -75,3 +75,59 @@ CREATE OR REPLACE TYPE BODY EMPRESA_TYPE AS
 END;
 
 SELECT e.nome_fantasia, e.contaempregados() FROM empresa_tab e;
+
+----------------------------------------------------------------------------------------
+
+-- Questionário A6Q1
+
+create type membro_type as object (
+    cpf integer,
+    nome varchar2(30),
+    sexo char(1),
+    nasc date
+) not final;
+
+drop type membro_type;
+drop table membro_tab;
+
+create or replace type docente_type under membro_type (
+    siape integer,
+    admissao date,
+    overriding member function calculatempo return integer
+);
+
+create type discente_type under membro_type (
+    matricula integer,
+    curso varchar2(20)
+);
+
+create table membro_tab of membro_type (primary key (cpf));
+
+insert into membro_tab values (docente_type(73635526728, 'PEDRO', 'M', to_date('11-JAN-1972'), 1477839, to_date('19-JAN-1996')));
+insert into membro_tab values (docente_type(11165527828, 'JOANA', 'F', to_date('20-JUN-1962'), 8276151, to_date('16-NOV-2000')));
+insert into membro_tab values (discente_type(73688876721, 'SANDRA', 'F', to_date('17-JAN-2000'), 201928726, 'COMPUTACAO'));
+insert into membro_tab values (discente_type(22225526726, 'RENATO', 'M', to_date('30-JUN-1999'), 202018736, 'ELETRICA'));
+
+alter type membro_type add member function calculatempo return integer cascade;
+
+CREATE OR REPLACE TYPE BODY membro_type AS
+    MEMBER FUNCTION calculatempo RETURN INTEGER IS
+        idade INTEGER;
+        BEGIN
+            SELECT (sysdate - m.nasc)/365 INTO idade FROM membro_tab m WHERE m.CPF = self.CPF;
+            RETURN idade;
+        END;
+END;
+
+select m.nome, m.calculatempo() as idade from membro_tab m;
+
+CREATE OR REPLACE TYPE BODY docente_type AS
+    overriding MEMBER FUNCTION calculatempo RETURN INTEGER IS
+        idade INTEGER;
+        BEGIN
+            SELECT (sysdate - m.nasc)/365 INTO idade FROM membro_tab m WHERE m.CPF = self.CPF;
+            RETURN idade;
+        END;
+END;
+
+select m.nome, m.calculatempo() as idade from membro_tab m;
