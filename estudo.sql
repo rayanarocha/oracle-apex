@@ -131,3 +131,57 @@ CREATE OR REPLACE TYPE BODY docente_type AS
 END;
 
 select m.nome, m.calculatempo() as idade from membro_tab m;
+
+----------------------------------------------------------------------------------------
+
+-- Questionário A7Q1
+
+create type dimensao_type as object (
+    comprimento number,
+    largura number,
+    altura number
+);
+
+create type produto_type2 as object (
+    id number,
+    nome varchar2(20),
+    dimensao dimensao_type,
+    cor varchar2(15)
+);
+
+-- criando restrição de integridade com a cláusula check
+create table produto_tab of produto_type2 (
+    primary key(id),
+    nome not null,
+    constraint ck_comprimento check(dimensao.comprimento > 0),
+    constraint ck_altura check(dimensao.altura > 0),
+    constraint ck_largura check(dimensao.largura > 0)
+);
+
+describe produto_tab;
+
+insert into produto_tab values(100, 'mesa', (dimensao_type(3, 1, 1)), 'marrom');
+insert into produto_tab values(102, 'sofa', (dimensao_type(4, 2, 2)), 'cinza');
+insert into produto_tab values(101, 'mesa', null, 'preta');
+
+--Atualize as dimensões do produto 102 para comprimento = 3, largura = 1 e altura = 1.
+
+update produto_tab set dimensao = dimensao_type(3,1,1) where id=102;
+
+select * from produto_tab;
+
+--Exiba o OID dos objetos contidos em Produto_tab cuja altura é igual a 1.
+select ref(p) from produto_tab p
+where p.dimensao.altura = 1;
+
+alter type produto_type2 add member function area return number cascade;
+
+create or replace type body produto_type2 as
+member function area return number is
+    begin
+        return dimensao.comprimento * dimensao.altura * dimensao.largura;
+    end;
+end;
+
+select p.nome, p.area() as area from produto_tab p
+order by p.area() desc;
