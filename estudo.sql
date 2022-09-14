@@ -280,3 +280,46 @@ values(lider2_type(20, 'Maria', integrantes_type(integrante2_type(200, 'Paula'),
 
 select l.nome, i.* 
 from lider2_tab l, table(l.integrantes) i;
+
+----------------------------------------------------------------------------------------
+
+-- Questionário A1011Q1
+
+create type secretario_type as object(
+    contador integer,
+    nomes varchar2(20)
+);
+
+create type secretarios_list as table of ref secretario_type;
+
+create type telefone_type as object(
+    numero varchar2(11)
+);
+
+create type telefone_varray as varray(3) of telefone_type;
+
+create type assessores_type as object(
+    codigo integer,
+    nome varchar2(20),
+    telefones telefone_varray,
+    secretarios secretarios_list
+);
+
+drop type politico_type force;
+
+create type assessores_list as table of ref assessores_type;
+
+create type politico_type as object(
+    matricula integer,
+    nomep varchar2(20),
+    nascimento date,
+    telefones telefone_varray,
+    assessores assessores_list
+);
+
+create table politico_table of politico_type(
+    primary key(matricula),
+    nomep not null,
+    nascimento not null)
+nested table assessores store as assessores_nt
+(nested table secretarios store as secretarios_nt);
