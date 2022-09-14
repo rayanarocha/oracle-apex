@@ -36,8 +36,7 @@ begin
 end;
 end;
 
-SELECT c.format_phone as telefone
-FROM contribuinte_obj_table c;
+SELECT c.format_phone() FROM contribuinte_obj_table c;
 
 drop type telefone_obj_type;
 

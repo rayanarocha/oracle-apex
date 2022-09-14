@@ -185,3 +185,98 @@ end;
 
 select p.nome, p.area() as area from produto_tab p
 order by p.area() desc;
+
+----------------------------------------------------------------------------------------
+
+-- Questionário A8Q1
+
+--Crie o Object Type Lider_Type com os atributos: codigo INTEGER, nome VARCHAR2(20).
+
+create type lider_type as object (
+    codigo integer,
+    nome varchar2(20)
+);
+
+--Crie a Object Table Lider_Tab usando como molde o Object Type lider_type. A coluna codigo deve ser chave primária.
+
+create table lider_tab of lider_type(primary key (codigo));
+
+--(c) Insira os seguintes objetos na Object Table lider_tab:
+
+--10, José
+--20, Maria
+
+insert into lider_tab values (10, 'José');
+insert into lider_tab values (20, 'Maria');
+
+--Crie o Object Type Integrante_Type com os atributos: codigo INTEGER, nome VARCHAR2(20) e lider REF lider_type.
+
+create type integrante_type as object (
+    codigo integer,
+    nome varchar2(20),
+    lider ref lider_type
+);
+
+--Crie a Object Table Integrante_Tab usando como molde o Object Type Intregrante_type. 
+--A coluna codigo deve ser chave primária. A coluna lider deve ser uma chave estrangeira de Lider_Tab.
+
+create table integrante_tab of integrante_type (
+    primary key (codigo),
+    constraint fk_lider foreign key(lider) references lider_tab
+);
+
+--Insira os seguintes objetos na Object Table integrante_tab:
+
+insert into integrante_tab values (integrante_type(100, 'Pedro',(select ref(l) from lider_tab l where l.nome = 'José')));
+insert into integrante_tab values (integrante_type(200, 'Paula',(select ref(l) from lider_tab l where l.nome = 'Maria')));
+insert into integrante_tab values (integrante_type(300, 'Marta',(select ref(l) from lider_tab l where l.nome = 'Maria')));
+
+--Elabore uma consulta SQL para mostrar o nome dos líderes e o nome dos respectivos integrantes.
+
+select i.lider.nome as lider, i.nome as integrante from integrante_tab i;
+
+--Crie o Object Type Integrante2_Type com os atributos: codigo INTEGER e nome VARCHAR2(20).
+
+create type integrante2_type as object (
+    codigo integer,
+    nome varchar2(20)
+);
+
+--Crie o OBJECT TYPE Integrantes_Type como uma lista de integrantes2. Use: AS TABLE OF.
+
+create type integrantes_type as table of integrante2_type;
+
+--Crie o OBJECT TYPE Lider2_Type com os seguintes atributos: codigo INTEGER, nome VARCHAR2(20) e integrantes Integrantes_Type.
+
+create type lider2_type as object (
+    codigo integer,
+    nome varchar2(20),
+    integrantes integrantes_type
+);
+
+--Crie a OBJECT TABLE Lider2_Tab usando como molde o Object Type Lider2_Type. A coluna codigo deve ser chave primária.
+
+create table lider2_tab of lider2_type(primary key(codigo))
+nested table integrantes store as interantes_nt;
+
+drop table lider2_tab;
+
+--Insira os seguintes objetos na Object Table lider2_tab:
+
+--10, José, <(100, Pedro)>
+--20, Maria, <(200, Paula),(300, Marta)>
+
+INSERT INTO lider2_tab VALUES (lider2_type(
+10, 'José',
+integrantes_type (
+integrante2_type (100, 'Pedro')
+)
+));
+
+insert into lider2_tab 
+values(lider2_type(20, 'Maria', integrantes_type(integrante2_type(200, 'Paula'), integrante2_type(300, 'Marta'))));
+
+--Elabore uma consulta SQL para mostrar o nome dos líderes e o nome dos respectivos integrantes.
+
+select l.nome, i.* 
+from lider2_tab l, table(l.integrantes) i;
