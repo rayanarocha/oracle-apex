@@ -291,7 +291,7 @@ create type secretario_type as object(
 
 drop type secretario_type force;
 
-create type secretarios_list as table of ref secretario_type;
+create type secretarios_list as table of secretario_type;
 
 drop type secretarios_list force;
 
@@ -310,11 +310,11 @@ create type assessores_type as object(
     secretarios secretarios_list
 );
 
-drop type assessores_list force;
+drop type assessores_type force;
 
 drop type politico_type force;
 
-create type assessores_list as table of ref assessores_type;
+create type assessores_list as table of assessores_type;
 
 create type politico_type as object(
     matricula integer,
