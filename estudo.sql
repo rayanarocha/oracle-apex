@@ -28,7 +28,6 @@ end;
 
 SELECT DEPARTMENTS_OBJ.conta_dep() FROM dual;
 
-
 ----------------------------------------------------------------------------------------
 
 -- Questionário A5Q2
@@ -290,11 +289,17 @@ create type secretario_type as object(
     nomes varchar2(20)
 );
 
+drop type secretario_type force;
+
 create type secretarios_list as table of ref secretario_type;
 
-create type telefone_type as object(
+drop type secretarios_list force;
+
+create or replace type telefone_type as object(
     numero varchar2(11)
 );
+
+drop type telefone_type force;
 
 create type telefone_varray as varray(3) of telefone_type;
 
@@ -304,6 +309,8 @@ create type assessores_type as object(
     telefones telefone_varray,
     secretarios secretarios_list
 );
+
+drop type assessores_list force;
 
 drop type politico_type force;
 
@@ -316,6 +323,8 @@ create type politico_type as object(
     telefones telefone_varray,
     assessores assessores_list
 );
+
+drop table politico_table force;
 
 create table politico_table of politico_type(
     primary key(matricula),
