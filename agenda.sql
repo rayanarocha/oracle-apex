@@ -41,6 +41,7 @@ begin
     contribuinte.format_phone();
 end;
 
+
 drop type telefone_obj_type;
 
 drop table contribuinte_obj_table;

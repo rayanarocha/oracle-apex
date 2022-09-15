@@ -295,13 +295,9 @@ create type secretarios_list as table of secretario_type;
 
 drop type secretarios_list force;
 
-create or replace type telefone_type as object(
-    numero varchar2(11)
-);
-
 drop type telefone_type force;
 
-create type telefone_varray as varray(3) of telefone_type;
+create type telefone_varray as varray(3) of varchar2(10);
 
 create type assessores_type as object(
     codigo integer,
@@ -313,6 +309,8 @@ create type assessores_type as object(
 drop type assessores_type force;
 
 drop type politico_type force;
+
+drop type assessores_list force;
 
 create type assessores_list as table of assessores_type;
 
@@ -332,3 +330,6 @@ create table politico_table of politico_type(
     nascimento not null)
 nested table assessores store as assessores_nt
 (nested table secretarios store as secretarios_nt);
+
+insert into politico_table 
+values (politico_type(1, 'José', to_date('12-JAN-1965'), assessores_list(assessores_type(10, 'Pedro', telefone_varray(column_value(987639837), column_value(975262272), column_value(990822827)), secretarios_list(secretario_type(101, 'Marta'), secretario_type(102, 'Paula'), secretario_type(103, 'Eva'), secretario_type(104, 'Alex'), secretario_type(105, Livia))))));
