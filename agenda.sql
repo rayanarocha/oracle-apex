@@ -36,7 +36,10 @@ begin
 end;
 end;
 
-SELECT c.format_phone() FROM contribuinte_obj_table c;
+declare contribuinte contribuinte_obj_type := contribuinte_obj_type('123', 'Maria', TO_DATE('20/02/1987'), telefone_obj_type('+55', '83', '789456'), endereco_obj_type('Rua A', 'casa', 'bairro', 'cidade', 'pb'));
+begin
+    contribuinte.format_phone();
+end;
 
 drop type telefone_obj_type;
 
