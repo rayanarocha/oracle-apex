@@ -331,5 +331,78 @@ create table politico_table of politico_type(
 nested table assessores store as assessores_nt
 (nested table secretarios store as secretarios_nt);
 
-insert into politico_table 
-values (politico_type(1, 'José', to_date('12-JAN-1965'), assessores_list(assessores_type(10, 'Pedro', telefone_varray(column_value(987639837), column_value(975262272), column_value(990822827)), secretarios_list(secretario_type(101, 'Marta'), secretario_type(102, 'Paula'), secretario_type(103, 'Eva'), secretario_type(104, 'Alex'), secretario_type(105, Livia))))));
+
+insert into politico_table values(
+    -- atributos: matricula, nome_p, nascimento, telefones_p, assessores
+    1, 
+    'JOSE',
+    TO_DATE('12/01/1965'),
+    telefone_varray('9999-9999', '88888-8888', '77777-7777'),
+    assessores_list(
+        assessores_type(
+            -- atributos: codigo, nome_a, telefones_a, secretarios(secretario_typ_nt)
+            1,
+            'PAULO',
+            telefone_varray('123456789'),
+            secretarios_list(
+                secretario_type(
+                    -- atributos: contador, nome_s
+                    1,
+                    'LUIZA'
+                )
+            )
+        ),
+
+        assessores_type(
+            -- atributos: codigo, nome_a, telefones_a, secretarios(secretario_typ_nt)
+            2,
+            'FELIPE',
+            telefone_varray('987654321', '44444-4444'),
+            secretarios_list(
+                secretario_type(
+                    -- atributos: contador, nome_s
+                    2,
+                    'MARIA'
+                ),
+                secretario_type(
+                    -- atributos: contador, nome_s
+                    3,
+                    'MARTA'
+                )
+            )
+        )
+    )
+);
+
+SELECT p.nomep, a.nome, s.nomes FROM politico_table p, table(p.assessores) a, table(a.secretarios) s;
+
+update table(select p.assessores
+                from politico_table p
+                where p.matricula = 1) a
+set value(a) = assessores_type(
+            -- atributos: codigo, nome_a, telefones_a, secretarios(secretario_typ_nt)
+            2,
+            'GUSTAVO',
+            telefone_varray('66666-6665', '44444-4444'),
+            secretarios_list(
+                secretario_type(
+                    -- atributos: contador, nome_s
+                    2,
+                    'MARIA'
+                ),
+                secretario_type(
+                    -- atributos: contador, nome_s
+                    3,
+                    'MARTA'
+                )
+            )
+        )
+where a.nome = 'FELIPE';
+
+update table(select a.secretarios from politico_table p, table(p.assessores) a where p.matricula = 1 and a.codigo = 2) e
+set value(e) = secretario_type(
+                    -- atributos: contador, nome_s
+                    2,
+                    'MARIO'
+                )
+where e.contador = 2
