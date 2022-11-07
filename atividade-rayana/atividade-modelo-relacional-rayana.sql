@@ -1,7 +1,7 @@
 ---------------CRIANDO AS TABELAS------------------------
 
 create table pessoa(
-    cpf int primary key not null,
+    cpf number(11) not null unique,
     nome varchar2(40) 
 ); 
 
@@ -49,11 +49,11 @@ insert into pessoa values (987654321, 'Edison Drye');
 insert into pessoa values (098765432, 'Mihoko Scholl');
 insert into pessoa values (012345679, 'Ajani Harding');
 
-insert into funcionario values (100, 'manhã', 123456789);
+insert into funcionario values (100, 'manh?', 123456789);
 insert into funcionario values (101, 'tarde', 012345678);
-insert into funcionario values (102, 'manhã', 987654321);
+insert into funcionario values (102, 'manh?', 987654321);
 insert into funcionario values (103, 'noite', 098765432);
-insert into funcionario values (104, 'manhã', 012345679);
+insert into funcionario values (104, 'manh?', 012345679);
 
 insert into cliente values (200, sysdate, 988745641, 999456350, 012345678);
 insert into cliente values (201, sysdate + 1, 996587441, 987456210, 987654321);
@@ -73,7 +73,7 @@ insert into locacao values (sysdate + 2, 202, 302);
 insert into locacao values (sysdate + 3, 203, 301);
 insert into locacao values (sysdate + 4, 204, 300);
 
-insert into livro values (400, 'Ruthie Coco', 'A ARCA DE NOÉ');
+insert into livro values (400, 'Ruthie Coco', 'A ARCA DE NO?');
 insert into livro values (401, 'Orazio Hart', 'A RAINHA DA NEVE');
 insert into livro values (402, 'Vinaya Justus', 'ALADIM E A LAMPADA MARAVILHOSA');
 insert into livro values (403, 'Tristan Karns', 'CACHINHOS DE OURO');
@@ -88,14 +88,14 @@ select * from exemplar;
 select * from locacao;
 select * from livro;
 
---Para cada um dos dois esquemas criados, escreva uma consulta que mostre o nome do cliente e o título dos livros que ele locou com a 
---respectiva data de locação. Mostre as consultas e o resultado de cada uma. Obviamente, os resultados devem ser iguais.
+--Para cada um dos dois esquemas criados, escreva uma consulta que mostre o nome do cliente e o t?tulo dos livros que ele locou com a 
+--respectiva data de loca??o. Mostre as consultas e o resultado de cada uma. Obviamente, os resultados devem ser iguais.
 
 select p.nome, l.titulo, loc.data_locacao 
 from pessoa p, livro l, locacao loc;
 
 ---------------DROP------------------------
-drop table pessoa;
+drop table pessoa force;
 drop table funcionario;
 drop table cliente;
 drop table exemplar;
