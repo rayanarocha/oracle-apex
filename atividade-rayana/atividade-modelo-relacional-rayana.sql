@@ -56,11 +56,11 @@ insert into funcionario values (102, 'manhã', 987654321);
 insert into funcionario values (103, 'noite', 098765432);
 insert into funcionario values (104, 'manhã', 012345679);
 
-insert into cliente values (200, sysdate, 988745641, 999456350, 012345678);
-insert into cliente values (201, sysdate + 1, 996587441, 987456210, 987654321);
-insert into cliente values (202, sysdate + 2, 37889839, 34273226, 012345678);
+insert into cliente values (200, sysdate, 988745641, 999456350, 123456789);
+insert into cliente values (201, sysdate + 1, 996587441, 987456210, 012345678);
+insert into cliente values (202, sysdate + 2, 37889839, 34273226, 987654321);
 insert into cliente values (203, sysdate + 3, 26615109, 24531220, 098765432);
-insert into cliente values (204, sysdate + 4, 32336348, 33569377, 123456789);
+insert into cliente values (204, sysdate + 4, 32336348, 33569377, 012345679);
 
 insert into livro values (400, 'Ruthie Coco', 'A ARCA DE NO?');
 insert into livro values (401, 'Orazio Hart', 'A RAINHA DA NEVE');
