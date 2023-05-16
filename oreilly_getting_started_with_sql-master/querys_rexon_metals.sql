@@ -30,3 +30,14 @@ description,
 price,
 round(price * 1.07, 2) as taxed_price
 from product;
+
+-- concatenação de texto
+-- concatenando as colunas CITY e STATE da tabela CUSTOMER
+select name,
+city || ',' || state as location
+from customer;
+
+-- concatenando mais valores
+select name,
+street_address || ' ' || city || ', ' || state || ' ' || zip as ship_address
+from customer;
