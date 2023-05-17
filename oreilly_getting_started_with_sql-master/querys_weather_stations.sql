@@ -55,3 +55,33 @@ where report_code in ('513A63', '1F8A7B', 'EF616A');
 -- verificando que todos os registros da coluna REPORT_CODE têm 6 digitos
 select * from station_data
 where length(report_code) != 6;
+
+-- selecionando todos ao código que começam com a letra 'A' usando LIKE
+select * from station_data
+where report_code like 'A%';
+
+-- selecionando todos ao código que começam com a letra 'B' e a segunda letra 'C' usando LIKE
+select * from station_data
+where report_code like 'B_C%';
+
+-- usando where com booleanos
+select * from station_data
+where tornado = true and hail = true;
+
+select * from station_data
+where tornado = 1 and hail = 1;
+
+select * from station_data
+where tornado and hail;
+
+select * from station_data
+where not tornado and hail;
+
+-- manipulando null
+-- todos os registros null SNOW_DEPTH
+select * from station_data
+where snow_depth is null;
+
+-- todos os registros não nullo SNOW_DEPTH
+select * from station_data
+where snow_depth is not null;
