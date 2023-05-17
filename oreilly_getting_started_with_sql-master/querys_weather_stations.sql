@@ -85,3 +85,11 @@ where snow_depth is null;
 -- todos os registros não nullo SNOW_DEPTH
 select * from station_data
 where snow_depth is not null;
+
+-- consultando todos os registros em que PRECIPITATION for menor que 0,5
+select * from station_data
+where precipitation <= 0.5;
+
+-- consultando todos os registros em que PRECIPITATION for menor que 0,5 ou nulos
+select * from station_data
+where precipitation is null or precipitation <= 0.5;
