@@ -93,3 +93,23 @@ where precipitation <= 0.5;
 -- consultando todos os registros em que PRECIPITATION for menor que 0,5 ou nulos
 select * from station_data
 where precipitation is null or precipitation <= 0.5;
+
+-- usando a função COALESCE para manipular nulos
+select * from station_data
+where coalesce(precipitation, 0) <= 0.5;
+
+-- usando a função COALESCE no SELECT pra mudar um placeholder
+select report_code, coalesce(precipitation, 0) as rainfall
+from station_data;
+
+-- agrupando condições
+
+-- procurar condições de chuva com neve ou apenas neve
+select * from station_data
+where rain = 1 and temperature <= 32
+or snow_depth > 0;
+
+-- reescrevendo a condiçõa anterior
+select * from station_data
+where (rain = 1 and temperature <= 32)
+or snow_depth > 0;
