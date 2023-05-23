@@ -113,3 +113,38 @@ or snow_depth > 0;
 select * from station_data
 where (rain = 1 and temperature <= 32)
 or snow_depth > 0;
+
+-- obtendo a contagem dos registros de station_data
+select count(*) as record_count from station_data
+where tornado = 1;
+
+-- separando a contagem por ano
+select year, count(*) as record_count from station_data
+where tornado = 1
+group by year;
+
+-- agrupando a contagem por mês e ano
+select year, month, count(*) as record_count from station_data
+where tornado = 1
+group by year, month;
+
+select year, month, count(*) as record_count from station_data
+where tornado = 1
+group by 1, 2;
+
+-- ordenando a contagem por mês e ano
+select year, month, count(*) as record_count from station_data
+where tornado = 1
+group by year, month
+order by year, month;
+
+-- ordenando a contagem por mês e ano em ordem descrescente
+select year, month, count(*) as record_count from station_data
+where tornado = 1
+group by year, month
+order by year desc, month;
+
+-- funções de agragação
+
+select count(snow_depth) as recorded_snow_depth_count
+from station_data;
